@@ -3,5 +3,5 @@ dotenv.config();
 
 module.exports = {
     PORT : process.env.PORT ,
-    DB_URL : "mongodb://localhost/basics"
+    DB_URL : process.env.DB_URL
 }

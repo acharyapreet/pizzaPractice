@@ -13,3 +13,6 @@ async function connectDB() {
 }
 
 module.exports = connectDB;
+
+//password 6hyuC367dsd4tZ1z
+//username acharyapreet2
