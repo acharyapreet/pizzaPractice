@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const serverConfig = require('./config/serverConfig');
 const connectDB = require('./config/dbConfig');
+const User = require('./schema/userSchema');
 
 // making a app object of express
 const app = express();
@@ -22,4 +23,15 @@ app.post('/ping', (req, res) => {
 app.listen(serverConfig.PORT, async() => {
     await connectDB();
     console.log(`server is running on port ${serverConfig.PORT}`);
+
+    const newUser = await User.create({
+        firstName : "johnathan",
+        lastName : "desuza",
+        mobile_number :1234567890,
+        password : 'hello123',
+        email : 'john@gmail.com'
+    })
+
+    console.log("Created new user");
+    console.log(newUser);
 }) 
