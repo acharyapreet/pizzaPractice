@@ -5,6 +5,7 @@ const connectDB = require('./config/dbConfig');
 const User = require('./schema/userSchema');
 const userRoute =require('./routes/userRoutes')
 const cartRoute =require('./routes/cartRoute')
+const authRouter = require('./routes/authRoute');
 
 // making a app object of express
 const app = express();
@@ -17,9 +18,11 @@ app.use(bodyParser.urlencoded({extended : true}));
 app.use(bodyParser.text());
 
 //routing the userRoute
-app.use('/users',userRoute)
+app.use('/users',userRoute);
 //routing the cartRoute
-app.use('/cart',cartRoute)
+app.use('/cart',cartRoute);
+//routing the authRoute
+app.use('/auth', authRouter);
 // app.post('/ping', (req, res) => {
 //     console.log(req.body);
 //     return res.json({message : "pong"})
