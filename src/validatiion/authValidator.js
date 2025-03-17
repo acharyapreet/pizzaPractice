@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const {JWT_SECRET} = require('../config/serverConfig')
 async function isLoggedIn(req, res, next){
-    const token = req.cookies['authToken'];
+    const token = req.cookies['authToken']; //auth token is key in cookie
     if(!token){
         return res.status(401).json({
             success : false,
@@ -10,7 +10,7 @@ async function isLoggedIn(req, res, next){
             message : "no auth token provided"
         });
     }
-    const decoded = jwt.verify(token, JWT_SECRET);
+    const decoded = jwt.verify(token, JWT_SECRET); 
 
     if(!decoded){
         return res.status(401).json({
