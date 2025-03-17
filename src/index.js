@@ -5,7 +5,9 @@ const connectDB = require('./config/dbConfig');
 const User = require('./schema/userSchema');
 const userRoute =require('./routes/userRoutes')
 const cartRoute =require('./routes/cartRoute')
+const cookieParser = require('cookie-parser')
 const authRouter = require('./routes/authRoute');
+const { isLoggedIn } = require('./validatiion/authValidator');
 
 // making a app object of express
 const app = express();
@@ -16,6 +18,7 @@ app.use(bodyParser.json());
 //extended true means we can parse nested objects and it remove the warning
 app.use(bodyParser.urlencoded({extended : true}));
 app.use(bodyParser.text());
+app.use(cookieParser());//to parse the cookie
 
 //routing the userRoute
 app.use('/users',userRoute);
@@ -23,10 +26,11 @@ app.use('/users',userRoute);
 app.use('/cart',cartRoute);
 //routing the authRoute
 app.use('/auth', authRouter);
-// app.post('/ping', (req, res) => {
-//     console.log(req.body);
-//     return res.json({message : "pong"})
-// })
+app.post('/ping', isLoggedIn, (req, res) => {
+    console.log(req.body);
+    console.log(req.cookies);
+    return res.json({message : "pong"})
+})
 
 //starting the server
 app.listen(serverConfig.PORT, async() => {
